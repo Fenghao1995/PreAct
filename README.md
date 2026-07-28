@@ -44,6 +44,9 @@ cd PreAct
 conda env create -f environment.yml
 conda activate preact
 ```
+## Datasets preparation
+
+Data for the three simulation tasks (SORTING, STACKING, PUSH-T) comes from https://alrhub.github.io/d3il-website/, while data for the three real-world tasks (PICK_PLACE, INSERT, PUSH_TENNIS) was collected via teleoperation. 
 
 
 ## Release Status
@@ -51,8 +54,8 @@ conda activate preact
 - [x] Method and experimental results described in the manuscript
 - [x] Repository and license initialized
 - [x] Configuration files and environment specification
-- [ ] Training and inference code
 - [ ] Datasets preparation
+- [ ] Training and inference code
 - [ ] Checkpoints and reproducible evaluation scripts
 
 Code, model artifacts, and reproduction instructions are currently being prepared. Those instructions will be added together with the corresponding tested release artifacts.
