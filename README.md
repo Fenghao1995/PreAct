@@ -10,7 +10,8 @@
 **Hao Feng, Zhijian Wang, Sifan Lan, Yinglong Yan, Yonghao Wang, Weiying Xie, and Leyuan Fang**
 
 ## Overview
-![Uploading image2.jpg…]()
+<img width="4433" height="2516" alt="image2" src="https://github.com/user-attachments/assets/9270ce86-e7ec-4c64-9645-267a92610f20" />
+
 
 Diffusion- and flow-matching policies can be brittle when deployment drifts from training data - for example, through object-pose changes, contact disturbances, or accumulated execution errors. Existing failure monitors can raise an alarm, but do not specify how to change the imminent action; recovery methods often depend on corrective demonstrations or human intervention.
 
