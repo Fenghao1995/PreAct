@@ -46,13 +46,6 @@ conda activate preact
 ```
 
 
-
-## Installation
-conda env create -f preact.yml
-conda activate preact
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
-
-
 ## Release Status
 
 - [x] Method and experimental results described in the manuscript
