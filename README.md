@@ -104,7 +104,7 @@ for cfg in configs/real_robot/{pick_place,insert,push_tennis}.yaml; do
 done
 ```
 
-For a lightweight CPU dry run of the full Stage I → Stage II → calibration →
+For a GPU dry run of the full Stage I → Stage II → calibration →
 runtime path, use one experiment config and write artifacts outside the source
 tree:
 
@@ -113,26 +113,26 @@ CFG=configs/experiments/sorting_fm.yaml
 OUT=/tmp/preact_dry_run
 
 python scripts/train_stage1_lewm.py \
-  --task-config "$CFG" --smoke --epochs 1 --batch-size 32 \
-  --max-samples 64 --device cpu --out "$OUT/stage1"
+  --task-config "$CFG" --epochs 100 --batch-size 32 \
+  --max-samples 64 --device cuda 0 --out "$OUT/stage1"
 
 python scripts/train_stage2_policy_rnd.py \
   --task-config "$CFG" --lewm-checkpoint "$OUT/stage1/lewm.pt" \
-  --smoke --epochs 1 --batch-size 32 --max-samples 64 --device cpu \
+ --epochs 20 --batch-size 32 --max-samples 64 --device cuda 0 \
   --out "$OUT/stage2"
 
 python scripts/calibrate_thresholds.py \
   --task-config "$CFG" --lewm-checkpoint "$OUT/stage1/lewm.pt" \
   --policy-checkpoint "$OUT/stage2/policy.pt" \
-  --rnd-checkpoint "$OUT/stage2/drs_o.pt" --smoke \
+  --rnd-checkpoint "$OUT/stage2/drs_o.pt"  \
   --policy-samples 2 --future-action-samples 2 --batch-size 32 \
-  --device cpu --out "$OUT/thresholds.json"
+  --device cuda 0 --out "$OUT/thresholds.json"
 
 python scripts/run_preact.py \
   --task-config "$CFG" --lewm-checkpoint "$OUT/stage1/lewm.pt" \
   --policy-checkpoint "$OUT/stage2/policy.pt" \
   --rnd-checkpoint "$OUT/stage2/drs_o.pt" \
-  --thresholds "$OUT/thresholds.json" --smoke --batch-size 2 --device cpu
+  --thresholds "$OUT/thresholds.json" --batch-size 2 --device cuda 0
 ```
 
 ## Prepare data
@@ -289,21 +289,8 @@ scripts/          training, validation, conversion, and deployment CLIs
 docs/             reproducibility and hardware notes
 ```
 
-## Reproducibility scope
-
-This repository implements the submitted method and encodes all values that
-can be recovered unambiguously from the draft. Exact benchmark reproduction
-still requires the original demonstrations, physically executed random-play
-or perturbation data, successful calibration rollouts, the shared encoder and
-policy weights, environment versions, and evaluation seeds. See
-[Paper alignment](docs/PAPER_ALIGNMENT.md) before reporting comparisons.
-
 ## License
 
 This project is released under the [MIT License](LICENSE).
 
-## Citation
 
-The submitted draft does not yet provide final venue, year, or DOI metadata.
-Use [CITATION.cff](CITATION.cff) as the placeholder and update it after
-acceptance.
