@@ -1,0 +1,20 @@
+task:
+  name: sorting
+  obs_shape: [128]
+  paper_observation_shape: [2, 3, 96, 96]
+  obs_history: 2
+  latent_dim: 128
+  action_dim: 2
+  state_dim: 3
+  action_horizon: 16
+  execution_horizon: 8
+  calibration_rollouts: 50
+  average_episode_length: 47
+  maximum_episode_length: 75
+paths: {lewm_data: "", expert_data: "", calibration_data: ""}
+dataset: {expert_rollouts: 160, lewm_expert_rollouts: 160, lewm_perturbation_rollouts: 320}
+world_model: {predictor_kind: mlp}
+policy: {kind: diffusion, hidden_dim: 256, depth: 4, diffusion_steps: 100}
+stage2: {policy_kind: diffusion, epochs: 2000, batch_size: 256, lr: 0.00003, rnd_lr: 0.00003}
+calibration: {policy_samples: 1, future_action_samples: 256}
+runtime: {trigger_policy_samples: 256, future_action_samples: 256}

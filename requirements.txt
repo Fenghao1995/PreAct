@@ -1,0 +1,4 @@
+numpy>=1.23
+torch>=2.0
+pyyaml>=6.0
+h5py>=3.8

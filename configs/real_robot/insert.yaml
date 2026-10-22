@@ -1,0 +1,42 @@
+task:
+  name: insert
+  description: Insert the welding torch into the welding holder with a stable final pose.
+  success: The welding torch is stably inserted in the holder.
+  observation_shape: [2, 3, 480, 640]
+  action_dim: 7
+  state_dim: 15
+  maximum_episode_steps: 77
+  evaluation:
+    id: Torch and holder fixed in the third and first cells of the 12.5 cm orange grid.
+    ood: Shift the holder 1 cm to the right or 1 cm downward.
+  random_play:
+    - use conservative lateral and orientation offsets before insertion
+    - make shallow contacts and partial insertions only
+    - probe slightly, withdraw, and re-align
+    - avoid unconstrained random actions that could damage hardware
+
+hardware:
+  host: ${PREACT_FRANKA_HOST}
+  port: 4242
+  cameras:
+    - {name: wrist, serial: "${PREACT_WRIST_CAMERA_SERIAL}", width: 640, height: 480, fps: 15}
+    - {name: exterior, serial: "${PREACT_EXTERIOR_CAMERA_SERIAL}", width: 640, height: 480, fps: 15}
+  home_joints_rad: [0.0424, -0.5245, -0.0951, -2.7361, 0.003, 2.9713, 0.8088]
+  gripper_max_open_m: 0.080
+  gripper_speed_m_s: 0.1
+  gripper_force_n: 20.0
+  reset_gripper_open: false
+  debug: false
+  safety:
+    max_translation_m: 0.02
+    max_rotation_rad: 0.10
+    ema_alpha: 0.4
+    workspace_min_m: null # Set measured task-specific bounds in hardware.local.yaml.
+    workspace_max_m: null
+
+collection:
+  expert_rollouts: 50
+  random_play_rollouts: 10
+  calibration_rollouts: 20
+  fps: 15
+  data_root: ${PREACT_DATA_ROOT}

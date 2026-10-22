@@ -1,0 +1,19 @@
+# Copy to hardware.local.yaml (ignored by git), keep it off public GitHub, and
+# pass it with --hardware-config. INSERT must retain 640x480; the other two
+# paper tasks use 424x240. The camera list replaces the task list as a whole.
+hardware:
+  host: 192.0.2.10
+  port: 4242
+  cameras:
+    - {name: wrist, serial: "WRIST_SERIAL", width: 424, height: 240, fps: 15}
+    - {name: exterior, serial: "EXTERIOR_SERIAL", width: 424, height: 240, fps: 15}
+  safety:
+    max_translation_m: 0.02
+    max_rotation_rad: 0.10
+    ema_alpha: 0.4
+    # Replace with bounds measured in the robot base frame before deployment.
+    workspace_min_m: [0.30, -0.35, 0.02]
+    workspace_max_m: [0.75, 0.35, 0.55]
+
+collection:
+  data_root: /absolute/path/outside/the/repository

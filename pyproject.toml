@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "preact-robot"
+version = "0.3.0"
+description = "PreAct: Predict-Evaluate-Act runtime risk correction for generative robot policies."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Hao Feng" },
+    { name = "Zhijian Wang" },
+    { name = "Sifan Lan" },
+    { name = "Yinglong Yan" },
+    { name = "Yonghao Wang" },
+    { name = "Weiying Xie" },
+    { name = "Leyuan Fang" },
+]
+dependencies = [
+    "numpy>=1.23",
+    "torch>=2.0",
+    "pyyaml>=6.0",
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.optional-dependencies]
+data = ["h5py>=3.8"]
+real = [
+    "lerobot>=0.3.4,<0.4",
+    "pyrealsense2>=2.55",
+    "scipy>=1.10",
+    "zerorpc>=0.6",
+]
+dev = ["ruff>=0.5"]
+
+[project.urls]
+Repository = "https://github.com/Fenghao1995/PreAct"
+
+[tool.setuptools.packages.find]
+include = ["preact*", "lerobot_robot_preact_franka*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*.py" = ["E402"]

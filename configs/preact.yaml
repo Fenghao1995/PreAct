@@ -1,0 +1,71 @@
+# Shared PreAct defaults. Paper-reported task/policy values live in
+# configs/experiments/*.yaml and override this file.
+seed: 7
+device: auto
+
+stage1:
+  # Stage-I epochs/lr/batch size are not reported in the submitted draft.
+  # These release defaults are explicit rather than presented as paper values.
+  epochs: 100
+  batch_size: 256
+  lr: 0.0001
+  weight_decay: 0.00001
+  sigreg_weight: 0.1       # Section 4.4
+  sigreg_projections: 1024 # Section 4.4
+  max_samples: null
+
+stage2:
+  weight_decay: 0.00001
+  rnd_lr: 0.0005
+  rnd_output_dim: 128
+  rnd_target_hidden_dims: [1024, 2048, 4096]
+  rnd_predictor_tail_dims: [2048, 1024]
+  rnd_normalize_input: false
+  max_samples: null
+
+world_model:
+  hidden_dim: 256
+  num_layers: 3
+  num_heads: 4
+  residual: true
+
+calibration:
+  quantile: 0.9
+  policy_samples: 1
+  future_action_samples: 32
+  future_action_latent_index: null
+  future_action_reduce: sum
+  future_observation_reduce: sum
+  threshold_style: time_varying
+
+runtime:
+  enabled: true
+  require_both_thresholds: true
+  threshold_step_mode: policy
+  trigger_policy_samples: 32
+  future_action_samples: 32
+  future_action_latent_index: null
+  future_action_reduce: sum
+  future_observation_reduce: sum
+  obs_weight: 1.0
+  action_weight: 1.0
+  anchor_weight: 1.0
+  normalize_costs: true
+
+# N, K, and T are named by Algorithm 1 but their numerical values are not
+# reported. These are transparent release defaults.
+cem:
+  num_samples: 64
+  topk: 8
+  iterations: 4
+  init_std: 0.15
+  min_std: 0.001
+  momentum: 0.1
+  keep_policy_action: true
+
+action_entropy:
+  mode: ace
+  # Appendix A.2 defines alpha but the submitted draft does not report it.
+  cell_size_factor: 0.1
+  # Limits the imagined latent states sampled from the policy at once.
+  latent_batch_size: 8

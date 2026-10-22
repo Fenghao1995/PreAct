@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use PreAct, please cite the paper and this software."
+title: "PreAct: Thinking before Acting — Runtime Risk Correction for Robotic Manipulation"
+type: software
+version: 0.3.0
+date-released: 2026-07-17
+repository-code: "https://github.com/Fenghao1995/PreAct"
+license: MIT
+authors:
+  - family-names: Feng
+    given-names: Hao
+  - family-names: Wang
+    given-names: Zhijian
+  - family-names: Lan
+    given-names: Sifan
+  - family-names: Yan
+    given-names: Yinglong
+  - family-names: Wang
+    given-names: Yonghao
+  - family-names: Xie
+    given-names: Weiying
+  - family-names: Fang
+    given-names: Leyuan
+preferred-citation:
+  type: article
+  title: "Thinking before Acting: Runtime Risk Correction for Robotic Manipulation"
+  year: 2026
+  authors:
+    - family-names: Feng
+      given-names: Hao
+    - family-names: Wang
+      given-names: Zhijian
+    - family-names: Lan
+      given-names: Sifan
+    - family-names: Yan
+      given-names: Yinglong
+    - family-names: Wang
+      given-names: Yonghao
+    - family-names: Xie
+      given-names: Weiying
+    - family-names: Fang
+      given-names: Leyuan

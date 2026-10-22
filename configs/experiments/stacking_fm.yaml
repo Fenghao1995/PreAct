@@ -1,0 +1,20 @@
+task:
+  name: stacking
+  obs_shape: [128]
+  paper_observation_shape: [2, 3, 96, 96]
+  obs_history: 5
+  latent_dim: 128
+  action_dim: 8
+  state_dim: 8
+  action_horizon: 8
+  execution_horizon: 4
+  calibration_rollouts: 50
+  average_episode_length: 79
+  maximum_episode_length: 120
+paths: {lewm_data: "", expert_data: "", calibration_data: ""}
+dataset: {expert_rollouts: 1000, lewm_expert_rollouts: 1000, lewm_perturbation_rollouts: 1000}
+world_model: {predictor_kind: transformer}
+policy: {kind: flow, hidden_dim: 256, depth: 3, num_heads: 4, integration_steps: 16}
+stage2: {policy_kind: flow, epochs: 20, batch_size: 256, lr: 0.0005, rnd_lr: 0.0005}
+calibration: {policy_samples: 1, future_action_samples: 32}
+runtime: {trigger_policy_samples: 32, future_action_samples: 32}

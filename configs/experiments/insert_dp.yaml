@@ -1,0 +1,20 @@
+task:
+  name: insert
+  obs_shape: [64]
+  paper_observation_shape: [2, 3, 480, 640]
+  obs_history: 2
+  latent_dim: 64
+  action_dim: 7
+  state_dim: 15
+  action_horizon: 16
+  execution_horizon: 8
+  calibration_rollouts: 20
+  average_episode_length: 59
+  maximum_episode_length: 77
+paths: {lewm_data: "", expert_data: "", calibration_data: ""}
+dataset: {expert_rollouts: 50, lewm_expert_rollouts: 50, lewm_random_play_rollouts: 10}
+world_model: {predictor_kind: mlp}
+policy: {kind: diffusion, hidden_dim: 256, depth: 4, diffusion_steps: 100}
+stage2: {policy_kind: diffusion, epochs: 600, batch_size: 64, lr: 0.0001, rnd_lr: 0.0001}
+calibration: {policy_samples: 1, future_action_samples: 30}
+runtime: {trigger_policy_samples: 30, future_action_samples: 30}

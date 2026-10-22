@@ -1,19 +1,12 @@
 name: preact
 
 channels:
-  - defaults
-  - conda-forge
   - pytorch
+  - nvidia
+  - conda-forge
 
 dependencies:
   - python=3.11
-  - pip
-  - numpy
-  - omegaconf
-  - scipy
-  - tqdm
-  - hydra-core
-  - scikit-learn
-  - matplotlib
-  - pandas
-  - zarr
+  - pip>=23
+  - pip:
+      - -e .[dev,data]
