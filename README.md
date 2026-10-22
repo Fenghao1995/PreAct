@@ -135,9 +135,6 @@ python scripts/run_preact.py \
   --thresholds "$OUT/thresholds.json" --smoke --batch-size 2 --device cpu
 ```
 
-This dry run checks software integration only; it does not reproduce the
-paper's reported success rates.
-
 ## Prepare data
 
 Stage I uses `D_LeWM`: expert trajectories plus physically executed
