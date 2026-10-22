@@ -21,19 +21,9 @@ otherwise the original policy output is preserved.
 
 ## Highlights
 
-- Two-stage training from Algorithm 2: LeWM first, then policy and RND.
-- ACT-style conditional flow matching and temporal U-Net DDPM policies.
-- Transformer and residual-MLP one-step latent world-model predictors.
-- Appendix A.2 action-chunk entropy (ACE), including per-timestep joint
-  histograms and horizon aggregation.
-- Successful-rollout, time-varying DRS-O/DRS-A threshold calibration.
-- Dual-threshold triggering, policy anchor, CEM correction, and
-  receding-horizon execution from Algorithm 1.
-- Twelve paper-checked experiment configurations: six tasks and two policy
-  families.
-- Franka/LeRobot support for PICK_PLACE, INSERT, and PUSH_TENNIS, including
-  synchronized dual RealSense observations, bounded Cartesian control, data
-  conversion, collection, a NUC RPC bridge, and online deployment.
+- Introduces PreAct, a prospective Predict–Evaluate–Act framework for runtime correction of generative robot policies under distribution shift.
+- Combines action-conditioned latent world-model rollouts with complementary observation- and action-side risk measures to correct risky actions before execution.
+- Improves robustness across six simulated and real-world manipulation tasks and two generative policy families, without corrective demonstrations, policy retraining, or a separate recovery controller.
 
 The stable data boundary is the **policy-aligned observation embedding**
 (`dim(Oe)` in the paper): 128 dimensions for SORTING and STACKING, and 64 for
@@ -175,9 +165,9 @@ ACT-style flow policy and `dp` is DDPM with a temporal U-Net.
 | SORTING | `sorting_fm`, `sorting_dp` | simulation | 128 |
 | STACKING | `stacking_fm`, `stacking_dp` | simulation | 128 |
 | PUSHT | `pusht_fm`, `pusht_dp` | simulation | 64 |
-| PICK_PLACE | `pick_place_fm`, `pick_place_dp` | Franka | 64 |
-| INSERT | `insert_fm`, `insert_dp` | Franka | 64 |
-| PUSH_TENNIS | `push_tennis_fm`, `push_tennis_dp` | Franka | 64 |
+| PICK_PLACE | `pick_place_fm`, `pick_place_dp` | real-world | 64 |
+| INSERT | `insert_fm`, `insert_dp` | real-world | 64 |
+| PUSH_TENNIS | `push_tennis_fm`, `push_tennis_dp` | real-world | 64 |
 
 Every training, calibration, and runtime CLI validates the merged config
 against the paper table before doing work. `configs/preact.yaml` contains
